@@ -1,5 +1,5 @@
 {{#affinity-engine engineId="app" config=config fixtures=fixtures isFocused=true as |engine|}}
-  {{#if engine.isLoaded}}
+  {{#liquid-if (and engine.isLoaded sequencerComplete) class="liquid-engine"}}
     {{affinity-engine-stage engineId=engine.engineId initialScene="initial"}}
 
     {{#affinity-engine-menu-bar engineId=engine.engineId}}
@@ -10,12 +10,60 @@
       {{affinity-engine-menu-bar-button-save engineId=engine.engineId}}
     {{/affinity-engine-menu-bar}}
   {{else}}
-    {{#affinity-engine-curtain engineId=engine.engineId filesToPreload=(hash keyframes="src" sounds="src") as |curtain|}}
-      <div>{{curtain.title}}</div>
-      {{ember-progress-bar
-        progress=curtain.progress
-        useDefaultStep=true
-      }}
+    {{#affinity-engine-curtain engineId=engine.engineId filesToPreload=(hash keyframes="src" sounds="src") classNames="ae-full-size" as |curtain|}}
+      {{#ember-sequencer
+        animationAdapter="velocity"
+        classNames="ae-full-size"
+        frameDuration=1000
+        animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0)))
+        animationOut=(hash duration=1000 effect=(hash opacity=0))
+        onComplete=(toggle-action "sequencerComplete" this)
+      as |sequencer|}}
+        {{#sequencer.frame}}
+          <div class="true-center">
+            <div>Made by My Studio</div>
+          </div>
+        {{/sequencer.frame}}
+        {{#sequencer.frame}}
+          <a href="http://www.affinityengine.org" target="_blank" class="made-by-affinity">
+            <div class="true-center">
+              <img src="affinity-engine-logo.png">
+            </div>
+          </a>
+        {{/sequencer.frame}}
+        {{#sequencer.frame as |frame|}}
+          <div>{{curtain.title}}</div>
+          {{ember-progress-bar
+            progress=curtain.progress
+            useDefaultStep=true
+            options=progressBarOptions
+          }}
+          {{#if frame.isVisible}}
+            {{#ember-sequencer
+              animationAdapter="velocity"
+              animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0)))
+              animationOut=(hash duration=1000 effect=(hash opacity=0))
+              classNames="ae-full-size"
+            as |sub-sequencer|}}
+              {{#sub-sequencer.frame}}
+                <div class="true-center">
+                  <div>Frame 1</div>
+                </div>
+              {{/sub-sequencer.frame}}
+              {{#sub-sequencer.frame}}
+                <div class="true-center">
+                  <div>Frame 2</div>
+                </div>
+              {{/sub-sequencer.frame}}
+              {{#sub-sequencer.frame}}
+                <div class="true-center">
+                  <div>Frame 3</div>
+                </div>
+              {{/sub-sequencer.frame}}
+            {{/ember-sequencer}}
+          {{/if}}
+        {{/sequencer.frame}}
+      {{/ember-sequencer}}
     {{/affinity-engine-curtain}}
-  {{/if}}
+  {{/liquid-if}}
 {{/affinity-engine}}
