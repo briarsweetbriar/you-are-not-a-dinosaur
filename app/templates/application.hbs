@@ -21,7 +21,8 @@
       as |sequencer|}}
         {{#sequencer.frame}}
           <div class="true-center">
-            <div>Made by My Studio</div>
+            <h1>You are Just a Dinosaur</h1>
+            <div>Words by null null null</div>
           </div>
         {{/sequencer.frame}}
         {{#sequencer.frame}}
@@ -32,7 +33,6 @@
           </a>
         {{/sequencer.frame}}
         {{#sequencer.frame as |frame|}}
-          <div>{{curtain.title}}</div>
           {{ember-progress-bar
             progress=curtain.progress
             useDefaultStep=true
@@ -47,17 +47,12 @@
             as |sub-sequencer|}}
               {{#sub-sequencer.frame}}
                 <div class="true-center">
-                  <div>Frame 1</div>
+                  <div>Dinosaurs walked the Earth 65 million years ago.</div>
                 </div>
               {{/sub-sequencer.frame}}
               {{#sub-sequencer.frame}}
                 <div class="true-center">
-                  <div>Frame 2</div>
-                </div>
-              {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame}}
-                <div class="true-center">
-                  <div>Frame 3</div>
+                  <div>One of the largest dinosaur skeletons was 39 feet tall and 74 feet long.</div>
                 </div>
               {{/sub-sequencer.frame}}
             {{/ember-sequencer}}

@@ -6,8 +6,8 @@ export default Ember.Controller.extend({
   config,
   fixtures,
   progressBarOptions: {
-    color: 'rgb(250, 250, 250)',
-    trailColor: 'rgba(250, 250, 250, 0.62)',
+    color: '#33ff66',
+    trailColor: '#33ff66',
     strokeWidth: 1,
     trailWidth: 0.62,
     text: {

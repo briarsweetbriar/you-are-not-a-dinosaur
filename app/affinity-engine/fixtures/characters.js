@@ -4,5 +4,5 @@ export default [{
 }, {
   id: 'alien',
   name: 'Alien',
-  namePosition: 'right'
+  namePosition: 'center'
 }];
