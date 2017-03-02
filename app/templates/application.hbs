@@ -19,11 +19,11 @@
         animationOut=(hash duration=1000 effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
       as |sequencer|}}
-        {{#sequencer.frame}}
+        {{#sequencer.frame duration=1500}}
           <div class="true-center">
             <h1>You are Just a Dinosaur</h1>
             <div>Words by null null null</div>
-            <div>Song 'Spacewolf' by Matt Oakley</div>
+            <div class="margin-top-1">Song 'Spacewolf' by <a href="https://twitter.com/oakley_music" target="_blank">Matt Oakley</a></div>
           </div>
         {{/sequencer.frame}}
         {{#sequencer.frame}}
@@ -33,7 +33,7 @@
             </div>
           </a>
         {{/sequencer.frame}}
-        {{#sequencer.frame as |frame|}}
+        {{#sequencer.frame duration=1 as |frame|}}
           {{ember-progress-bar
             progress=curtain.progress
             useDefaultStep=true

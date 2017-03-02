@@ -3,6 +3,8 @@ import { task } from 'ember-concurrency';
 
 export default Scene.extend({
   start: task(function * (script) {
+    yield script.pause(500);
+
     this.bgmusic = script.sound('spacewolf').play().loop();
     this.alien = script.character('alien');
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
