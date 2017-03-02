@@ -3,6 +3,7 @@ import { task } from 'ember-concurrency';
 
 export default Scene.extend({
   start: task(function * (script) {
+    this.bgmusic = script.sound('spacewolf').play().loop();
     this.alien = script.character('alien');
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
     yield script.menu(["*gasp* An alien!"]);
@@ -12,6 +13,9 @@ export default Scene.extend({
 
   a: task(function * (script) {
     const gasps = this.incrementProperty('gaspCount');
+
+    if (gasps > 5) return this.get('angryAlien').perform(script);
+
     yield this.alien._.text(gasps < 3 ? "*gasp* A dinosaur!" : gasps === 4 ? "Yes, I'm an alien. Can we get on with it?" : "*silence*");
     const choice = yield script.menu(["*gasp* An alien!", "Wait. Did you just call me a dinosaur?"]);
 
@@ -200,7 +204,8 @@ export default Scene.extend({
   }),
 
   again: task(function * (script) {
-    const choice = yield script.menu(['Again?', "I'm done."]);
+    yield script.pause(1000);
+    const choice = yield script.menu(['Play again?', "I'm done."]);
 
     switch (choice.key) {
       case 0: return script.scene('main');
