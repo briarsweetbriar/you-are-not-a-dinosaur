@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'affinity-engine-visual-novel-quickstart',
+    modulePrefix: 'you-are-just-a-dinosaur',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
@@ -44,7 +44,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.rootURL = '/affinity-engine-visual-novel-quickstart/';
+    ENV.rootURL = '/you-are-just-a-dinosaur/';
 
   }
 

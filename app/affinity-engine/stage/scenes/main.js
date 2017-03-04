@@ -128,7 +128,7 @@ export default Scene.extend({
   }),
 
   c5: task(function * (script) {
-    yield this.alien._.text("I know what a dinosaur is. [[pause 500]] Are you questioning my intellect?");
+    yield this.alien._.text("I know what a dinosaur is. [[pause 500]] Are you questioning my intellegence?");
     const choice = yield script.menu(["Yes! Really, how is it that you even have space technology?", "Actually, <em>do</em> you know what a dinosaur is?"]);
 
     switch (choice.key) {
