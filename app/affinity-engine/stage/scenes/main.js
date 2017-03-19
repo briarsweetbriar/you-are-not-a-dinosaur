@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { Scene } from 'affinity-engine-stage';
 import { task } from 'ember-concurrency';
 
@@ -25,9 +26,9 @@ export default Scene.extend({
     } else if (gasps === 2) {
       yield this.alien._.text("A dinosaur!");
     } else if (gasps === 4) {
-      yield this.alien.pose('sad')._.text("Perhaps dinosaurs haven't changed overly much in the past 65mil. [[pause 500]] You're still rather [[pose annoyed]] [[pause 500]] reactionary.");
+      yield this.alien.pose('sad')._.text("Perhaps dinosaurs haven't changed overly much in the past 65mil. [[pause 500]] You're still rather [[pause 250]] reactionary.");
     } else {
-      yield this.alien.pose('annoyed');
+      yield this.alien.pose('annoyed')._.text('<em>*glare*</em>');
     }
 
     const choice = yield script.menu(["*<em>gasp</em>* An alien!", "Wait. Did you just call me a dinosaur?"]);
@@ -49,7 +50,7 @@ export default Scene.extend({
   }),
 
   b2: task(function * (script) {
-    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 250]] I see that your kind has evolved a sense of humor. [[pause 500]] [[pose annoyed]] This is quite an improvement. [[pause 500]] [[pose worried]] Last time I was here, you were all about screaming and biting.");
+    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 250]] I see that your kind has evolved a sense of humor. [[pause 250]] This is quite an improvement. [[pause 500]] [[pose worried]] Last time I was here, you were all about screaming and biting.");
     const choice = yield script.menu(["I'm not a dinosaur.", "That does sound a lot like humanity, tbh."]);
 
     switch (choice.key) {
@@ -59,7 +60,7 @@ export default Scene.extend({
   }),
 
   b3: task(function * (script) {
-    yield this.alien._.text("You mean you're still into screaming and biting? [[pause 500]] [[pose annoyed]] Well, I guess that isn't surprising. [[pause 500]] [[pose worried]] A quick magno-resonant scan shows that you've developed some neural tangles on top of your limbic system, but given the history of your species, I imagine it'll take more than that to curb your natural territoriality and aggression.");
+    yield this.alien.pose('annoyed')._.text("Not surprising. [[pause 500]] You've developed neural tangles on top of your limbic system, but given the history of your species, it should take more than that to curb your natural territoriality and aggression.");
     const choice = yield script.menu(["I'm not a dinosaur.", "You're really into biological determinism, aren't you?"]);
 
     switch (choice.key) {
@@ -79,7 +80,7 @@ export default Scene.extend({
   }),
 
   b4b: task(function * (script) {
-    yield this.alien.pose('distracted')._.text("Excellent! [[pause 500]] Then we agree that your kind will be screaming and biting for many eons to come.");
+    yield this.alien.pose('neutral')._.text("Excellent! [[pause 500]] [[pose sad]] Though your kind will likely be screaming and biting for many eons to come.");
     const choice = yield script.menu(["Well, actually I'm not a dinosaur.", "Basically."]);
 
     switch (choice.key) {
@@ -89,7 +90,7 @@ export default Scene.extend({
   }),
 
   b5: task(function * (script) {
-    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 500]] [[pose annoyed]] You have proven yourself wrong. [[pause 500]] You see, you 'fight these notions' because it's in your biology to fight. [[pause 500]] [[pose sad]] It is your dinosaur nature.");
+    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 500]] [[pose annoyed]] You have proven yourself wrong. [[pause 250]] You see, you 'fight these notions' because it's in your biology to fight. [[pose sad]] [[pause 500]] It is your dinosaur nature.");
     const choice = yield script.menu(["I'm <em>not</em> a dinosaur.", "You know what, I'm done with this."]);
 
     switch (choice.key) {
@@ -99,7 +100,7 @@ export default Scene.extend({
   }),
 
   c1: task(function * (script) {
-    yield this.alien.pose('annoyed')._.text("No? [[pause 350]] I see it written all over your DNA, though. [[pause 350]] [[pose distracted]] You're a dinosaur.");
+    yield this.alien.pose('annoyed')._.text("No? [[pause 350]] I see it written all over your DNA, though. [[pause 350]] [[pose neutral]] You're a dinosaur.");
     const choice = yield script.menu(["I'm <em>not</em> a dinosaur.", "How exactly are you defining 'dinosaur'?"]);
 
     switch (choice.key) {
@@ -119,7 +120,8 @@ export default Scene.extend({
   }),
 
   c3: task(function * (script) {
-    yield this.alien.pose('neutral')._.text("I see your aggro-limbic systems spiking. [[pause 500]] [[pose worried]] Last time this happened with a dinosaur, it was [[pause 250]] non-optimal. [[pause 500]] [[pose annoyed]] For your own safety, do not try to eat me.");
+    yield this.alien.pose('neutral')._.text("I see your aggro-limbic systems spiking. [[pause 500]] [[pose worried]] Last time this happened with a dinosaur, it was [[pause 250]] non-optimal.");
+    yield this.alien.pose('annoyed')._.text("For your own safety, do not try to eat me.");
     const choice = yield script.menu(["I'm not a dinosaur!", "I'm not going to eat you."]);
 
     switch (choice.key) {
@@ -182,7 +184,7 @@ export default Scene.extend({
   }),
 
   d4: task(function * (script) {
-    yield this.alien.pose('neutral')._.text("Oh, oh! [[pause 250]] Thought experiment! [[pause 350]] [[pose annoyed]] If the definition I (and most the galaxy) use is wrong, then why do you care if we call you a dinosaur?");
+    yield this.alien.pose('neutral')._.text("Oh, oh! [[pause 250]] Thought experiment! [[pause 350]] [[pose annoyed]] If the definition I <em>and most the galaxy</em> use is wrong, then why do you care if we call you a dinosaur?");
     const choice = yield script.menu(["Because to me a dinosaur is a giant scaled beast with no love, no reason, and no spirituality. I don't want to be confused with one.", "Because thinking of myself as a dinosaur would ultimately compel me to be more like a dinosaur myself.", "Because I know what I am, and I won't abide anyone telling me otherwise.", "Actually, being a dinosaur sounds pretty cool. I'll take it!"]);
 
     switch (choice.key) {
@@ -203,26 +205,35 @@ export default Scene.extend({
   }),
 
   playerDone: task(function * (script) {
+    script.layer('engine.stage.foreground').transition({ translateX: '100%' }, 1000);
     yield script.text("And with that, you turn around and leave. That conversation was going nowhere.");
     this.get('again').perform(script);
   }),
 
   alienDone: task(function * (script) {
     yield this.alien.pose('annoyed')._.text("No.");
-    yield script.text("And with that, the alien gets back into its ship and departs.");
-    this.get('again').perform(script);
+    this.set('rudeDeparture', true);
+    this.get('alienLeaves').perform(script);
   }),
 
   alienPlacated: task(function * (script) {
     yield this.alien.pose('sad')._.text("You dinosaurs are more reasonable than I remember! [[pause 500]] [[pose distracted]] I actually need to leave, but it was a pleasure to see one of your kind again! [[pause 250]] Hope you're still around in another 65mil!");
-    yield script.text("And with that, the alien gets back into its ship and departs.");
-    this.get('again').perform(script);
+    this.set('rudeDeparture', false);
+    this.get('alienLeaves').perform(script);
   }),
 
   angryAlien: task(function * (script) {
-    yield this.alien.pose('neutral')._.text("How rude! [[pause 350]] [[pose annoyed]] And here I was, trying to be civil with a dinosaur! [[pause 500]] My mistake.");
+    yield this.alien.pose('neutral')._.text("How rude! [[pause 750]] [[pose annoyed]] And here I was, trying to be civil with a dinosaur! [[pause 500]] My mistake.");
+    this.set('rudeDeparture', true);
+    this.get('alienLeaves').perform(script);
+  }),
+
+  alienLeaves: task(function * (script) {
+    yield this.alien.fadeOut();
     yield script.text("And with that, the alien gets back into its ship and departs.");
-    const choice = yield script.menu(["Flip off the UFO.", "Sigh in relief.", "Shrug."]);
+    yield this.spaceship.transition({ translateY: '-100vh', translateX: '19%', translateZ: '100px' }, 2000);
+    yield script.menu(this.get('alienDepartureChoices'));
+
     this.get('again').perform(script);
   }),
 
@@ -232,6 +243,16 @@ export default Scene.extend({
 
     switch (choice.key) {
       case 0: return script.scene('main');
+    }
+  }),
+
+  alienDepartureChoices: Ember.computed('rudeDeparture', {
+    get() {
+      if (this.get('rudeDeparture')) {
+        return ["Flip off the UFO.", "Sigh.", "Just walk away."];
+      } else {
+        return ["Wave at the UFO.", "Shrug.", "Walk away."];
+      }
     }
   })
 });
