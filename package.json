@@ -16,7 +16,7 @@
     "deploy": "ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\"; git push; git checkout -"
   },
   "devDependencies": {
-    "affinity-engine-visual-novel-bundle": "0.1.1",
+    "affinity-engine-visual-novel-bundle": "0.1.2",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^2.4.1",
     "ember-cli": "2.10.0",

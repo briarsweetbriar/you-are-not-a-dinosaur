@@ -6,7 +6,9 @@ export default Scene.extend({
     yield script.pause(500);
 
     this.bgmusic = script.sound('spacewolf').play().loop();
-    this.alien = script.character('alien');
+    script.layer('engine.stage').transition({ translateZ: '-1000px', translateX: '38%' }, 0).transition({ translateZ: 0, translateX: 0 }, 10000);
+    this.spaceship = script.image('spaceship').position('center bottom').fadeIn();
+    this.alien = script.character('alien').position('centerLeft bottom').fadeIn();
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* An alien!"]);
 
@@ -18,7 +20,16 @@ export default Scene.extend({
 
     if (gasps > 5) return this.get('angryAlien').perform(script);
 
-    yield this.alien._.text(gasps < 3 ? "<em>*gasp*</em> A dinosaur!" : gasps === 4 ? "Perhaps dinosaurs haven't changed overly much in the past 65mil. [[pause 500]] You're still rather [[pause 500]] reactionary." : "*silence*");
+    if (gasps === 1) {
+      yield this.alien.pose('worried')._.text("<em>*gasp*</em> A dinosaur!");
+    } else if (gasps === 2) {
+      yield this.alien._.text("A dinosaur!");
+    } else if (gasps === 4) {
+      yield this.alien.pose('sad')._.text("Perhaps dinosaurs haven't changed overly much in the past 65mil. [[pause 500]] You're still rather [[pose annoyed]] [[pause 500]] reactionary.");
+    } else {
+      yield this.alien.pose('annoyed');
+    }
+
     const choice = yield script.menu(["*<em>gasp</em>* An alien!", "Wait. Did you just call me a dinosaur?"]);
 
     switch (choice.key) {
@@ -28,7 +39,7 @@ export default Scene.extend({
   }),
 
   b1: task(function * (script) {
-    yield this.alien._.text("Yes? [[#pause 500]] It's really quite remarkable to see one of your kind again. [[pause 250]] I'd heard reports that you'd gone extinct.");
+    yield this.alien.pose('worried')._.text("Yes? [[pause 500]] It's really quite remarkable to see one of your kind again. [[pose sad]] [[pause 250]] I'd heard reports that you'd gone extinct.");
     const choice = yield script.menu(["Uh, I'm not a dinosaur.", "Actually, dinosaurs <em>are</em> extinct."]);
 
     switch (choice.key) {
@@ -38,7 +49,7 @@ export default Scene.extend({
   }),
 
   b2: task(function * (script) {
-    yield this.alien._.text("Ah, hahahahaha! [[pause 500]] I see that your kind has evolved a sense of humor. [[pause 500]] This is quite an improvement. [[pause 250]] Last time I was here, you were all about screaming and biting.");
+    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 250]] I see that your kind has evolved a sense of humor. [[pause 500]] [[pose annoyed]] This is quite an improvement. [[pause 500]] [[pose worried]] Last time I was here, you were all about screaming and biting.");
     const choice = yield script.menu(["I'm not a dinosaur.", "That does sound a lot like humanity, tbh."]);
 
     switch (choice.key) {
@@ -48,7 +59,7 @@ export default Scene.extend({
   }),
 
   b3: task(function * (script) {
-    yield this.alien._.text("You mean you're still into screaming and biting? [[pause 500]] Well, I guess that isn't surprising. [[pause 250]] A quick magno-resonant scan shows that you've developed some neural tangles on top of your limbic system, but given the history of your species, I imagine it'll take more than that to curb your natural territoriality and aggression.");
+    yield this.alien._.text("You mean you're still into screaming and biting? [[pause 500]] [[pose annoyed]] Well, I guess that isn't surprising. [[pause 500]] [[pose worried]] A quick magno-resonant scan shows that you've developed some neural tangles on top of your limbic system, but given the history of your species, I imagine it'll take more than that to curb your natural territoriality and aggression.");
     const choice = yield script.menu(["I'm not a dinosaur.", "You're really into biological determinism, aren't you?"]);
 
     switch (choice.key) {
@@ -58,7 +69,7 @@ export default Scene.extend({
   }),
 
   b4: task(function * (script) {
-    yield this.alien._.text("Um, of course? [[pause 500]] You aren't?");
+    yield this.alien.pose('annoyed')._.text("Um, of course? [[pause 500]] You aren't?");
     const choice = yield script.menu(["I fight those notions everywhere I go.", "Actually, I also believe in biological determinism."]);
 
     switch (choice.key) {
@@ -68,7 +79,7 @@ export default Scene.extend({
   }),
 
   b4b: task(function * (script) {
-    yield this.alien._.text("Excellent! [[pause 500]] Then we agree that your kind will be screaming and biting for many eons to come.");
+    yield this.alien.pose('distracted')._.text("Excellent! [[pause 500]] Then we agree that your kind will be screaming and biting for many eons to come.");
     const choice = yield script.menu(["Well, actually I'm not a dinosaur.", "Basically."]);
 
     switch (choice.key) {
@@ -78,7 +89,7 @@ export default Scene.extend({
   }),
 
   b5: task(function * (script) {
-    yield this.alien._.text("Ah, hahahahaha! [[pause 250]] You have proven yourself wrong. [[pause 500]] You see, you 'fight these notions' because it's in your biology to fight. [[pause 500]] It is your dinosaur nature.");
+    yield this.alien.pose('neutral')._.text("Ah, hahahahaha! [[pause 500]] [[pose annoyed]] You have proven yourself wrong. [[pause 500]] You see, you 'fight these notions' because it's in your biology to fight. [[pause 500]] [[pose sad]] It is your dinosaur nature.");
     const choice = yield script.menu(["I'm <em>not</em> a dinosaur.", "You know what, I'm done with this."]);
 
     switch (choice.key) {
@@ -88,7 +99,7 @@ export default Scene.extend({
   }),
 
   c1: task(function * (script) {
-    yield this.alien._.text("No? [[pause 350]] I see it written all over your DNA, though. [[pause 350]] You're a dinosaur.");
+    yield this.alien.pose('annoyed')._.text("No? [[pause 350]] I see it written all over your DNA, though. [[pause 350]] [[pose distracted]] You're a dinosaur.");
     const choice = yield script.menu(["I'm <em>not</em> a dinosaur.", "How exactly are you defining 'dinosaur'?"]);
 
     switch (choice.key) {
@@ -98,7 +109,7 @@ export default Scene.extend({
   }),
 
   c2: task(function * (script) {
-    yield this.alien._.text("Oh, uh. [[pause 500]] This is weird. [[pause 750]] You don't realize that you're a dinosaur, do you?");
+    yield this.alien.pose('worried')._.text("Oh, uh. [[pause 500]] This is weird. [[pause 750]] [[pose sad]] You don't realize that you're a dinosaur, do you?");
     const choice = yield script.menu(["That's actually really offensive.", "Do <em>you</em> know what a dinosaur is?"]);
 
     switch (choice.key) {
@@ -108,7 +119,7 @@ export default Scene.extend({
   }),
 
   c3: task(function * (script) {
-    yield this.alien._.text("I see your aggro-limbic systems spiking. [[pause 500]] Last time this happened with a dinosaur, it was [[pause 500]] non-optimal. [[pause 300]] For your own safety, do not try to eat me.");
+    yield this.alien.pose('neutral')._.text("I see your aggro-limbic systems spiking. [[pause 500]] [[pose worried]] Last time this happened with a dinosaur, it was [[pause 250]] non-optimal. [[pause 500]] [[pose annoyed]] For your own safety, do not try to eat me.");
     const choice = yield script.menu(["I'm not a dinosaur!", "I'm not going to eat you."]);
 
     switch (choice.key) {
@@ -118,7 +129,7 @@ export default Scene.extend({
   }),
 
   c4: task(function * (script) {
-    yield this.alien._.text("Oh, [[pause 350]] are you an herbivore?");
+    yield this.alien.pose('sad')._.text("Oh, [[pause 350]] are you an herbivore?");
     const choice = yield script.menu(["Oh, are you an idiot? How is it that you even have space technology?", "I'm not a dinosaur."]);
 
     switch (choice.key) {
@@ -128,7 +139,7 @@ export default Scene.extend({
   }),
 
   c5: task(function * (script) {
-    yield this.alien._.text("I know what a dinosaur is. [[pause 500]] Are you questioning my intellegence?");
+    yield this.alien.pose('annoyed')._.text("I know what a dinosaur is. [[pause 500]] Are you questioning my intellegence?");
     const choice = yield script.menu(["Yes! Really, how is it that you even have space technology?", "Actually, <em>do</em> you know what a dinosaur is?"]);
 
     switch (choice.key) {
@@ -138,7 +149,7 @@ export default Scene.extend({
   }),
 
   d1: task(function * (script) {
-    yield this.alien._.text("Dinosaurs are terrestrial, multicellular lifeforms with spinocentric nervous systems, musculoskeletal physiologies, hemoglobular oxygenation cycles, and aggro-territorial behavioral patterns. [[pause 500]] Really, it's quite obvious. [[pause 350]] A competent paleontologist wouldn't even need to scan your DNA to know that you're a dinosaur.");
+    yield this.alien.pose('annoyed')._.text("Dinosaurs are terrestrial, [[pause 100]] multicellular lifeforms with spinocentric nervous systems, [[pause 100]] musculoskeletal physiologies, [[pause 100]] hemoglobular oxygenation cycles, [[pause 100]] and aggro-territorial behavioral patterns. [[pause 500]] Really, it's quite obvious. [[pause 350]] [[pose distracted]] A competent paleontologist wouldn't even need to scan your DNA to know that you're a dinosaur.");
     const choice = yield script.menu(["What you're describing just sounds like a vertebrate. I'm a more specific kind of vertebrate known as a 'mammal.'", "This is ridiculous. I'm not a dinosaur, and I don't need to defend that fact any longer.", "It sounds like you have a clearly defined category to which I belong. Therefore, you're right: I am a dinosaur."]);
 
     switch (choice.key) {
@@ -149,7 +160,7 @@ export default Scene.extend({
   }),
 
   d2: task(function * (script) {
-    yield this.alien._.text("Oh, sorry. [[pause 350]] I didn't realize that you had local distinctions between categories of dinosaur. [[pause 350]] Perhaps we can agree that you are a 'mammal' variant of dinosaur. [[pause 500]] That seems like a fair compromise.");
+    yield this.alien.pose('annoyed')._.text("Oh, sorry. [[pause 350]] I didn't realize that you had local distinctions between categories of dinosaur. [[pause 350]] [[pose neutral]] Perhaps we can agree that you are a 'mammal' variant of dinosaur. [[pause 500]] [[pose distracted]] That seems like a fair compromise.");
     const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "There'll be no compromise: I'm not a dinosaur, and this conversation is over.", "I'm glad we were able to find a compromise. Guess that makes me a mammalian dinosaur now."]);
 
     switch (choice.key) {
@@ -160,7 +171,7 @@ export default Scene.extend({
   }),
 
   d3: task(function * (script) {
-    yield this.alien._.text("Yet why should we care about your definition of dinosaur? [[pause 500]] The broader galactic community shares my definition.");
+    yield this.alien.pose('annoyed')._.text("Yet why should we care about your definition of dinosaur? [[pause 500]] [[pose distracted]] The broader galactic community shares my definition.");
     const choice = yield script.menu(["Because we're engaged in a dialogue, and if we're going to understand each other, we'll have to understand each other's definitions.", "Because it's the definition of <em>me</em> we're talking about, and you don't even know what a fucking <em>mammal</em> is.", "Okay, fair point. If that's how everyone else uses the term, then I guess I am a dinosaur."]);
 
     switch (choice.key) {
@@ -171,7 +182,7 @@ export default Scene.extend({
   }),
 
   d4: task(function * (script) {
-    yield this.alien._.text("Oh, oh! [[pause 250]] Thought experiment! [[pause 350]] If the definition I (and most the galaxy) use is wrong, then why do you care if we call you a dinosaur?");
+    yield this.alien.pose('neutral')._.text("Oh, oh! [[pause 250]] Thought experiment! [[pause 350]] [[pose annoyed]] If the definition I (and most the galaxy) use is wrong, then why do you care if we call you a dinosaur?");
     const choice = yield script.menu(["Because to me a dinosaur is a giant scaled beast with no love, no reason, and no spirituality. I don't want to be confused with one.", "Because thinking of myself as a dinosaur would ultimately compel me to be more like a dinosaur myself.", "Because I know what I am, and I won't abide anyone telling me otherwise.", "Actually, being a dinosaur sounds pretty cool. I'll take it!"]);
 
     switch (choice.key) {
@@ -181,7 +192,7 @@ export default Scene.extend({
   }),
 
   d5: task(function * (script) {
-    yield this.alien._.text("Uh. [[pause 500]] After further thought, I realize that this conversation will take more time than I have scheduled. [[pause 500]] So, while I would love to help you feel better about this conversation, I actually need to leave.");
+    yield this.alien.pose('distracted')._.text("I don't know if you can tell, but I am in the middle of repairing my spaceship. [[pause 500]] [[pose annoyed]] So, while I would love to help you feel better about being dinosaur, [[pose distracted]] I actually need to focus on this.");
     const choice = yield script.menu(["You know what, I've tried to be reasonable with you, but you're an asshole.", "Whatever.", "Look, just hear me out."]);
 
     switch (choice.key) {
@@ -197,19 +208,19 @@ export default Scene.extend({
   }),
 
   alienDone: task(function * (script) {
-    yield this.alien._.text("No.");
+    yield this.alien.pose('annoyed')._.text("No.");
     yield script.text("And with that, the alien gets back into its ship and departs.");
     this.get('again').perform(script);
   }),
 
   alienPlacated: task(function * (script) {
-    yield this.alien._.text("You dinosaurs are more reasonable than I remember! [[pause 500]] I actually need to leave, but it was a pleasure to see one of your kind again! [[pause 250]] Hope you're still around in another 65mil!");
+    yield this.alien.pose('sad')._.text("You dinosaurs are more reasonable than I remember! [[pause 500]] [[pose distracted]] I actually need to leave, but it was a pleasure to see one of your kind again! [[pause 250]] Hope you're still around in another 65mil!");
     yield script.text("And with that, the alien gets back into its ship and departs.");
     this.get('again').perform(script);
   }),
 
   angryAlien: task(function * (script) {
-    yield this.alien._.text("How rude! [[pause 350]] And here I was, trying to be civil with a dinosaur!");
+    yield this.alien.pose('neutral')._.text("How rude! [[pause 350]] [[pose annoyed]] And here I was, trying to be civil with a dinosaur! [[pause 500]] My mistake.");
     yield script.text("And with that, the alien gets back into its ship and departs.");
     const choice = yield script.menu(["Flip off the UFO.", "Sigh in relief.", "Shrug."]);
     this.get('again').perform(script);

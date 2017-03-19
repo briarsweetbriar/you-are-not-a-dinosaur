@@ -14,19 +14,19 @@
       {{#ember-sequencer
         animationAdapter="velocity"
         classNames="ae-full-size"
-        frameDuration=1000
+        frameDuration=15
         animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0)))
         animationOut=(hash duration=1000 effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
       as |sequencer|}}
-        {{#sequencer.frame duration=1500}}
+        {{#sequencer.frame}}
           <div class="true-center">
             <h1>You are Just a Dinosaur</h1>
             <div>Words by <a href="https://twitter.com/_nullnullnull_" target="_blank">null null null</a></div>
             <div class="margin-top-1">Song 'Spacewolf' by <a href="http://freemusicarchive.org/music/Matt_Oakley/" target="_blank">Matt Oakley</a></div>
           </div>
         {{/sequencer.frame}}
-        {{#sequencer.frame duration=1500}}
+        {{#sequencer.frame}}
           <a href="https://github.com/null-null-null/you-are-just-a-dinosaur" target="_blank" class="made-by-affinity">
             <div class="true-center">
               {{fa-icon "creative-commons"}}
