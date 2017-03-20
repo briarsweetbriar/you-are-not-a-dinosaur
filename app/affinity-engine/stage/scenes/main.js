@@ -10,6 +10,7 @@ export default Scene.extend({
     script.layer('engine.stage').transition({ translateZ: '-1000px', translateX: '38%' }, 0).transition({ translateZ: 0, translateX: 0 }, 10000);
     this.spaceship = script.image('spaceship').position('center bottom').fadeIn();
     this.alien = script.character('alien').position('centerLeft bottom').fadeIn();
+
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* An alien!"]);
 
