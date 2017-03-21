@@ -7,9 +7,11 @@ export default Scene.extend({
     yield script.pause(500);
 
     this.bgmusic = script.sound('spacewolf').play().loop();
-    script.layer('engine.stage').transition({ translateZ: '-1000px', translateX: '38%' }, 0).transition({ translateZ: 0, translateX: 0 }, 10000);
+    this.ground = script.backdrop('ground').fadeIn();
     this.spaceship = script.image('spaceship').position('center bottom').fadeIn();
     this.alien = script.character('alien').position('centerLeft bottom').fadeIn();
+    script.layer('engine.stage.background').transition({ translateZ: '-250px', translateX: '20%', translateY: '20%' }, 0).transition({ translateZ: 0, translateX: 0, translateY: '30%' }, 10000, { easing: 'easeInOutSine' });
+    script.layer('engine.stage.foreground').transition({ translateZ: '-1000px', translateX: '38%', translateY: '50%' }, 0).transition({ translateZ: 0, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOutSine' });
 
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* An alien!"]);
@@ -206,7 +208,8 @@ export default Scene.extend({
   }),
 
   playerDone: task(function * (script) {
-    script.layer('engine.stage.foreground').transition({ translateX: '100%' }, 1000);
+    script.layer('engine.stage.foreground').transition({ translateX: '150%', translateZ: '50px' }, 2500, { easing: 'easeInSine' });
+    script.layer('engine.stage.background').transition({ translateX: '100%', translateZ: '250px', opacity: 0 }, 15000, { easing: 'easeInOutSine' });
     yield script.text("And with that, you turn around and leave. That conversation was going nowhere.");
     this.get('again').perform(script);
   }),

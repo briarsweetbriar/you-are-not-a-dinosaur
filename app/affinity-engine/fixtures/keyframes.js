@@ -2,6 +2,9 @@ export default [{
   id: 'spaceship',
   src: 'images/spaceship.png'
 }, {
+  id: 'ground',
+  src: 'images/ground.png'
+}, {
   id: 'alien-neutral',
   src: 'images/alien/neutral.png'
 }, {
