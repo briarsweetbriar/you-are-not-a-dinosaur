@@ -234,14 +234,15 @@ export default Scene.extend({
 
   alienLeaves: task(function * (script) {
     yield this.alien.fadeOut();
-    yield script.text("And with that, the alien gets back into its ship and departs.");
-    yield this.spaceship.transition({ translateY: '-100vh', translateX: '19%', translateZ: '100px' }, 2000);
+    yield script.text("And with that, the alien makes a few final modifications, gets back into its ship, and departs.");
+    this.spaceship.transition({ translateY: '-100vh', translateX: '19%', translateZ: '100px' }, 2000);
     yield script.menu(this.get('alienDepartureChoices'));
 
     this.get('again').perform(script);
   }),
 
   again: task(function * (script) {
+    script.layer('engine.stage.background').transition({ opacity: 0 }, 2000);
     yield script.pause(1000);
     const choice = yield script.menu(['Play again?', "I'm done."]);
 
