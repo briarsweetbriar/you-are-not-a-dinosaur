@@ -6,12 +6,11 @@ export default Scene.extend({
   start: task(function * (script) {
     yield script.pause(500);
 
-    script.layer('engine').transition({ opacity: 0 }, 0);
-
     this.bgmusic = script.sound('spacewolf').play().loop();
     this.ground = script.backdrop('ground');
-    this.spaceship = script.image('spaceship').position('center bottom');
+    this.spaceship = script.image('spaceship').transition({ bottom: 0, left: '50%', translateX: '-50%', '@media (max-width: 500px)': { left: 0, translateX: '-5%' } }, 0);
     this.martian = yield script.character('martian').transition({ bottom: 0 }, 100);
+    script.layer('engine.stage').transition({ opacity: 0 }, 0);
     yield this.martian.transition({ bottom: 0, left: '50%', translateX: '-100%', '@media (max-width: 500px)': { bottom: '-1%', left: 0, translateX: '-30%' } }, 0);
     this.martian.fadeIn();
     this.ground.fadeIn();
@@ -20,7 +19,7 @@ export default Scene.extend({
     script.layer('engine.stage.background').transition({ scaleX: 0.65, scaleY: 0.65, translateX: '2%', translateY: '40%' }, 0);
     script.layer('engine.stage.foreground').transition({ scaleX: 0.37, scaleY: 0.37, translateX: '10%', translateY: '15%' }, 0);
 
-    script.layer('engine').transition({ opacity: 1 }, 2000);
+    script.layer('engine.stage').transition({ opacity: 1 }, 3000);
 
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: a martian is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* A martian!"]);
@@ -31,7 +30,7 @@ export default Scene.extend({
   a: task(function * (script) {
     const gasps = this.incrementProperty('gaspCount');
 
-    if (gasps > 5) return this.get('angrymartian').perform(script);
+    if (gasps > 5) return this.get('angryMartian').perform(script);
 
     if (gasps === 1) {
       yield this.martian.pose('worried')._.text("<em>*gasp*</em> A dinosaur!");
@@ -115,7 +114,7 @@ export default Scene.extend({
 
   c1: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("No? [[pause 350]] I see it written all over your DNA, though. [[pause 350]] [[pose neutral]] You're a dinosaur.");
-    const choice = yield script.menu(["I'm <em>not</em> a dinosaur.", "How exactly are you defining 'dinosaur'?"]);
+    const choice = yield script.menu(["Seriously, you need to listen to me. I'm <em>not</em> a dinosaur.", "How exactly are you defining 'dinosaur'?"]);
 
     switch (choice.key) {
       case 0: return this.get('c2').perform(script);
@@ -124,7 +123,7 @@ export default Scene.extend({
   }),
 
   c2: task(function * (script) {
-    yield this.martian.pose('worried')._.text("Oh, uh. [[pause 500]] This is weird. [[pause 750]] [[pose sad]] You don't realize that you're a dinosaur, do you?");
+    yield this.martian.pose('worried')._.text("Oh, uh. [[pause 500]] This is awkward. [[pause 750]] [[pose sad]] You don't realize that you're a dinosaur, do you?");
     const choice = yield script.menu(["That's actually really offensive.", "Do <em>you</em> know what a dinosaur is?"]);
 
     switch (choice.key) {
@@ -149,7 +148,7 @@ export default Scene.extend({
     const choice = yield script.menu(["Oh, are you an idiot? How is it that you even have space technology?", "I'm not a dinosaur."]);
 
     switch (choice.key) {
-      case 0: return this.get('angrymartian').perform(script);
+      case 0: return this.get('angryMartian').perform(script);
       default: return this.get('c5').perform(script);
     }
   }),
@@ -159,60 +158,60 @@ export default Scene.extend({
     const choice = yield script.menu(["Yes! Really, how is it that you even have space technology?", "Actually, <em>do</em> you know what a dinosaur is?"]);
 
     switch (choice.key) {
-      case 0: return this.get('angrymartian').perform(script);
+      case 0: return this.get('angryMartian').perform(script);
       default: return this.get('d1').perform(script);
     }
   }),
 
   d1: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("Dinosaurs are terrestrial, [[pause 100]] multicellular lifeforms with spinocentric nervous systems, [[pause 100]] musculoskeletal physiologies, [[pause 100]] hemoglobular oxygenation cycles, [[pause 100]] and aggro-territorial behavioral patterns. [[pause 500]] Really, it's quite obvious. [[pause 350]] [[pose distracted]] A competent paleontologist wouldn't even need to scan your DNA to know that you're a dinosaur.");
-    const choice = yield script.menu(["What you're describing just sounds like a vertebrate. I'm a more specific kind of vertebrate known as a 'mammal.'", "This is ridiculous. I'm not a dinosaur, and I don't need to defend that fact any longer.", "It sounds like you have a clearly defined category to which I belong. Therefore, you're right: I am a dinosaur."]);
+    const choice = yield script.menu(["I might share some traits with a dinosaur, but that doesn't make me one.", "I guess you're the expert here. So that makes me a dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
 
     switch (choice.key) {
       case 0: return this.get('d2').perform(script);
-      case 1: return this.get('playerDone').perform(script);
-      default: return this.get('martianPlacated').perform(script);
+      case 1: return this.get('martianPlacated').perform(script);
+      default: return this.get('playerDone').perform(script);
     }
   }),
 
   d2: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("Oh, sorry. [[pause 350]] I didn't realize that you had local distinctions between categories of dinosaur. [[pause 350]] [[pose neutral]] Perhaps we can agree that you are a 'mammal' variant of dinosaur. [[pause 500]] [[pose distracted]] That seems like a fair compromise.");
-    const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "There'll be no compromise: I'm not a dinosaur, and this conversation is over.", "I'm glad we were able to find a compromise. Guess that makes me a mammalian dinosaur now."]);
+    const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "Yeah, I guess compromise is good. So that makes me a mammalian dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
 
     switch (choice.key) {
       case 0: return this.get('d3').perform(script);
-      case 1: return this.get('playerDone').perform(script);
-      default: return this.get('martianPlacated').perform(script);
+      case 1: return this.get('martianPlacated').perform(script);
+      default: return this.get('playerDone').perform(script);
     }
   }),
 
   d3: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("Yet why should we care about your definition of dinosaur? [[pause 500]] [[pose distracted]] The broader galactic community shares my definition.");
-    const choice = yield script.menu(["Because we're engaged in a dialogue, and if we're going to understand each other, we'll have to understand each other's definitions.", "Because it's the definition of <em>me</em> we're talking about, and you don't even know what a fucking <em>mammal</em> is.", "Okay, fair point. If that's how everyone else uses the term, then I guess I am a dinosaur."]);
+    const choice = yield script.menu(["Because we're engaged in a dialogue, and if we're going to understand each other, we'll have to understand each other's definitions.", "I guess you're right. If everyone uses the term that way, then that's what it means. I'm a dinosaur.", "Because it's the definition of <em>me</em> we're talking about, and you don't even know what a fucking <em>mammal</em> is."]);
 
     switch (choice.key) {
       case 0: return this.get('d4').perform(script);
-      case 1: return this.get('angrymartian').perform(script);
-      default: return this.get('martianPlacated').perform(script);
+      case 1: return this.get('martianPlacated').perform(script);
+      default: return this.get('angryMartian').perform(script);
     }
   }),
 
   d4: task(function * (script) {
     yield this.martian.pose('neutral')._.text("Oh, oh! [[pause 250]] Thought experiment! [[pause 350]] [[pose annoyed]] If the definition I <em>and most the galaxy</em> use is wrong, then why do you care if we call you a dinosaur?");
-    const choice = yield script.menu(["Because to me a dinosaur is a giant scaled beast with no love, no reason, and no spirituality. I don't want to be confused with one.", "Because thinking of myself as a dinosaur would ultimately compel me to be more like a dinosaur myself.", "Because I know what I am, and I won't abide anyone telling me otherwise.", "Actually, being a dinosaur sounds pretty cool. I'll take it!"]);
+    const choice = yield script.menu(["Because to me a dinosaur is a giant scaled beast with no love, no reason, and no spirituality. I don't want to be confused with one.", "Because thinking of myself as a dinosaur would ultimately compel me to be more like a dinosaur myself.", "Because I know what I am, and I won't abide anyone telling me otherwise.", "You know what, I've tried to be reasonable with you, but you're an asshole."]);
 
     switch (choice.key) {
-      case 3: return this.get('martianPlacated').perform(script);
+      case 3: return this.get('angryMartian').perform(script);
       default: return this.get('d5').perform(script);
     }
   }),
 
   d5: task(function * (script) {
-    yield this.martian.pose('distracted')._.text("I don't know if you can tell, but I am in the middle of repairing my spaceship. [[pause 500]] [[pose annoyed]] So, while I would love to help you feel better about being dinosaur, [[pose distracted]] I actually need to focus on this.");
+    yield this.martian.pose('distracted')._.text("I don't know if you can tell, but I am in the middle of repairing my spaceship. [[pause 500]] [[pose annoyed]] So, while I would love to help you feel better about being a dinosaur, [[pose distracted]] I actually need to focus on this.");
     const choice = yield script.menu(["You know what, I've tried to be reasonable with you, but you're an asshole.", "Whatever.", "Look, just hear me out."]);
 
     switch (choice.key) {
-      case 0: return this.get('angrymartian').perform(script);
+      case 0: return this.get('angryMartian').perform(script);
       case 1: return this.get('playerDone').perform(script);
       default: return this.get('martianDone').perform(script);
     }
@@ -237,15 +236,15 @@ export default Scene.extend({
     this.get('martianLeaves').perform(script);
   }),
 
-  angrymartian: task(function * (script) {
+  angryMartian: task(function * (script) {
     yield this.martian.pose('neutral')._.text("How rude! [[pause 750]] [[pose annoyed]] And here I was, trying to be civil with a dinosaur! [[pause 500]] My mistake.");
     this.set('rudeDeparture', true);
     this.get('martianLeaves').perform(script);
   }),
 
   martianLeaves: task(function * (script) {
-    this.martian.fadeOut();
-    yield script.text("And with that, the martian makes a few final modifications, gets back into its ship, and departs.");
+    this.martian.delay(500).fadeOut(1000);
+    yield script.text("The martian makes a few final modifications before getting back into its ship to leave.");
     this.spaceship.transition({ translateY: '-100vh', translateX: '19%', translateZ: '100px' }, 2000);
     yield script.menu(this.get('martianDepartureChoices'));
 
@@ -253,9 +252,9 @@ export default Scene.extend({
   }),
 
   again: task(function * (script) {
-    script.layer('engine.stage.background').transition({ opacity: 0 }, 2000);
+    script.layer('engine.stage.background').transition({ opacity: 0 }, 1500);
     yield script.pause(1000);
-    const choice = yield script.menu(['Play again?', "I'm done."]);
+    const choice = yield script.menu(['Play again?']);
 
     switch (choice.key) {
       case 0: return script.scene('main');
@@ -265,9 +264,9 @@ export default Scene.extend({
   martianDepartureChoices: Ember.computed('rudeDeparture', {
     get() {
       if (this.get('rudeDeparture')) {
-        return ["Flip off the UFO.", "Sigh.", "Just walk away."];
+        return ["Flip off the UFO.", "Shrug.", "Tweet about it."];
       } else {
-        return ["Wave at the UFO.", "Shrug.", "Walk away."];
+        return ["*<em>sigh</em>*"];
       }
     }
   })
