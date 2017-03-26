@@ -5,7 +5,7 @@ export default [{
   id: 'alien',
   name: 'Alien',
   namePosition: 'center',
-  height: 80,
+  height: 75,
   defaultState: { pose: 'distracted' },
   layerOrder: ['base'],
   states: [{

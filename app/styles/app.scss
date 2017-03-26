@@ -38,6 +38,7 @@ a, a:visited {
 
 .true-center {
   height: 100%;
+  padding: 20px;
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -46,6 +47,7 @@ a, a:visited {
   justify-content: center;
   -webkit-flex-direction: column;
   flex-direction: column;
+  text-align: center;
 }
 
 .made-by-affinity, .made-by-affinity:visited {

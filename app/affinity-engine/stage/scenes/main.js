@@ -1,17 +1,26 @@
 import Ember from 'ember';
 import { Scene } from 'affinity-engine-stage';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 
 export default Scene.extend({
   start: task(function * (script) {
     yield script.pause(500);
 
+    script.layer('engine').transition({ opacity: 0 }, 0);
+
     this.bgmusic = script.sound('spacewolf').play().loop();
-    this.ground = script.backdrop('ground').fadeIn();
-    this.spaceship = script.image('spaceship').position('center bottom').fadeIn();
-    this.alien = script.character('alien').position('centerLeft bottom').fadeIn();
-    script.layer('engine.stage.background').transition({ translateZ: '-250px', translateX: '20%', translateY: '20%' }, 0).transition({ translateZ: 0, translateX: 0, translateY: '30%' }, 10000, { easing: 'easeInOutSine' });
-    script.layer('engine.stage.foreground').transition({ translateZ: '-1000px', translateX: '38%', translateY: '50%' }, 0).transition({ translateZ: 0, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOutSine' });
+    this.ground = script.backdrop('ground');
+    this.spaceship = script.image('spaceship').position('center bottom');
+    this.alien = yield script.character('alien').transition({ bottom: 0 }, 100);
+    yield this.alien.transition({ bottom: 0, left: '50%', translateX: '-100%', '@media (max-width: 500px)': { bottom: '-1%', left: 0, translateX: '-30%' } }, 0);
+    this.alien.fadeIn();
+    this.ground.fadeIn();
+    this.spaceship.fadeIn();
+
+    script.layer('engine.stage.background').transition({ scaleX: 0.65, scaleY: 0.65, translateX: '2%', translateY: '40%' }, 0);
+    script.layer('engine.stage.foreground').transition({ scaleX: 0.37, scaleY: 0.37, translateX: '10%', translateY: '15%' }, 0);
+
+    script.layer('engine').transition({ opacity: 1 }, 2000);
 
     yield script.text("You are out for a walk late at night when you stumble upon an impossible scene: an alien is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* An alien!"]);
@@ -43,6 +52,8 @@ export default Scene.extend({
   }),
 
   b1: task(function * (script) {
+    script.layer('engine.stage.background').transition({ scaleX: 1, scaleY: 1, translateX: 0 }, 10000, { easing: 'easeInOutSine' });
+    script.layer('engine.stage.foreground').transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOutSine' });
     yield this.alien.pose('worried')._.text("Yes? [[pause 500]] It's really quite remarkable to see one of your kind again. [[pose sad]] [[pause 250]] I'd heard reports that you'd gone extinct.");
     const choice = yield script.menu(["Uh, I'm not a dinosaur.", "Actually, dinosaurs <em>are</em> extinct."]);
 
