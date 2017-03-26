@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'you-are-just-a-dinosaur',
+    modulePrefix: 'you-are-not-a-dinosaur',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
@@ -44,7 +44,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.rootURL = '/you-are-just-a-dinosaur/';
+    ENV.rootURL = '/you-are-not-a-dinosaur/';
 
   }
 

@@ -5,18 +5,18 @@ export default [{
   id: 'ground',
   src: 'images/ground.png'
 }, {
-  id: 'alien-neutral',
-  src: 'images/alien/neutral.png'
+  id: 'martian-neutral',
+  src: 'images/martian/neutral.png'
 }, {
-  id: 'alien-annoyed',
-  src: 'images/alien/annoyed.png'
+  id: 'martian-annoyed',
+  src: 'images/martian/annoyed.png'
 }, {
-  id: 'alien-distracted',
-  src: 'images/alien/distracted.png'
+  id: 'martian-distracted',
+  src: 'images/martian/distracted.png'
 }, {
-  id: 'alien-sad',
-  src: 'images/alien/sad.png'
+  id: 'martian-sad',
+  src: 'images/martian/sad.png'
 }, {
-  id: 'alien-worried',
-  src: 'images/alien/worried.png'
+  id: 'martian-worried',
+  src: 'images/martian/worried.png'
 }];

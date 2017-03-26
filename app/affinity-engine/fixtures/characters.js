@@ -1,9 +1,6 @@
 export default [{
-  id: 'player',
-  name: 'You'
-}, {
-  id: 'alien',
-  name: 'Alien',
+  id: 'martian',
+  name: 'Martian',
   namePosition: 'center',
   height: 75,
   defaultState: { pose: 'distracted' },
@@ -11,27 +8,27 @@ export default [{
   states: [{
     key: { pose: 'neutral' },
     layers: {
-      base: 'alien-neutral'
+      base: 'martian-neutral'
     }
   }, {
     key: { pose: 'annoyed' },
     layers: {
-      base: 'alien-annoyed'
+      base: 'martian-annoyed'
     }
   }, {
     key: { pose: 'distracted' },
     layers: {
-      base: 'alien-distracted'
+      base: 'martian-distracted'
     }
   }, {
     key: { pose: 'sad' },
     layers: {
-      base: 'alien-sad'
+      base: 'martian-sad'
     }
   }, {
     key: { pose: 'worried' },
     layers: {
-      base: 'alien-worried'
+      base: 'martian-worried'
     }
   }]
 }];
