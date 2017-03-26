@@ -11,7 +11,10 @@
         animationOut=(hash duration=1000 effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
       as |sequencer|}}
-        {{#sequencer.frame animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0) translateY=(array 0 300)))}}
+        {{#sequencer.frame
+          frameDuration=2000
+          animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0) translateY=(array 0 300)))
+        }}
           <div class="true-center">
             <h1>You are Not a Dinosaur</h1>
             <div>Words by <a href="https://twitter.com/_nullnullnull_" target="_blank">null null null</a></div>
