@@ -1,11 +1,6 @@
 {{#affinity-engine engineId="app" config=config fixtures=fixtures isFocused=true as |engine|}}
   {{#liquid-if (and engine.isLoaded sequencerComplete) class="liquid-engine"}}
     {{affinity-engine-stage engineId=engine.engineId initialScene="initial"}}
-
-    {{#affinity-engine-menu-bar engineId=engine.engineId}}
-      {{affinity-engine-menu-bar-button-resize engineId=engine.engineId}}
-      {{affinity-engine-menu-bar-button-reset engineId=engine.engineId}}
-    {{/affinity-engine-menu-bar}}
   {{else}}
     {{#affinity-engine-curtain engineId=engine.engineId filesToPreload=(hash keyframes="src" sounds="src") classNames="ae-full-size" as |curtain|}}
       {{#ember-sequencer
