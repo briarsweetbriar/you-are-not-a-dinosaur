@@ -46,13 +46,13 @@
           }}
           {{#if frame.isVisible}}
             {{#ember-sequencer
-              frameDuration=1500
+              frameDuration=4000
               animationAdapter="velocity"
               animationIn=(hash duration=1000 effect=(hash opacity=(array 1 0)))
               animationOut=(hash duration=1000 effect=(hash opacity=0))
               classNames="ae-full-size"
             as |sub-sequencer|}}
-              {{#sub-sequencer.frame}}
+              {{#sub-sequencer.frame frameDuration=2000}}
                 <div class="true-center">
                   <div>Dinosaurs walked the Earth 65 million years ago.</div>
                 </div>
@@ -67,14 +67,14 @@
                   <div><a href="https://en.wikipedia.org/wiki/Dinosaur_intelligence">This Wikipedia article</a> ends with three long paragraphs describing a speculative dinosaur that could match human intellegence.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame}}
+              {{#sub-sequencer.frame frameDuration=1500}}
                 <div class="true-center">
                   <div>I love the internet.</div>
                 </div>
               {{/sub-sequencer.frame}}
               {{#sub-sequencer.frame}}
                 <div class="true-center">
-                  <div>When I was a kid, I loved dinosaurs, too. I would mold cheese wax into horns and pretend I was a triceratops.</div>
+                  <div>When I was a kid, I loved dinosaurs too. I would mold cheese wax into horns and pretend I was a triceratops.</div>
                 </div>
               {{/sub-sequencer.frame}}
               {{#sub-sequencer.frame}}
@@ -82,12 +82,12 @@
                   <div>In case you're not sure what a triceratops is, think of Cera from <em>The Land Before Time</em>.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame frameDuration=2000}}
+              {{#sub-sequencer.frame frameDuration=6000}}
                 <div class="true-center">
                   <div>I'm not sure why I was so obsessed with dinosaurs. Maybe it was just that they were something adults agreed were real, but that I never could actually see.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame}}
+              {{#sub-sequencer.frame frameDuration=2000}}
                 <div class="true-center">
                   <div>They were something I could only imagine.</div>
                 </div>
@@ -97,7 +97,7 @@
                   <div>And so, I imagined something awesome. To a lot of kids today, dinosaurs must still be awesome.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame}}
+              {{#sub-sequencer.frame frameDuration=3000}}
                 <div class="true-center">
                   <div>To me though, they're just dead.</div>
                 </div>
