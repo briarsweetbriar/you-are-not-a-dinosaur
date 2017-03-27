@@ -6,7 +6,7 @@
       {{#ember-sequencer
         animationAdapter="velocity"
         classNames="ae-full-size"
-        frameDuration=3000
+        frameDuration=2500
         animationIn=(hash duration=1000 easing="easeInSine" effect=(hash opacity=(array 1 0)))
         animationOut=(hash duration=1000 easing="easeOutSine" effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
@@ -31,7 +31,7 @@
             </div>
           </a>
         {{/sequencer.frame}}
-        {{#sequencer.frame frameDuration=4000}}
+        {{#sequencer.frame}}
           <a href="http://www.affinityengine.org" target="_blank" class="made-by-affinity">
             <div class="true-center">
               <img src="affinity-engine-logo.png">
