@@ -14,7 +14,7 @@ export default Scene.extend({
     script.layer('engine.stage').transition({ opacity: 0 }, 0);
     yield this.martian.transition({ bottom: 0, left: '50%', translateX: '-100%', '@media (max-width: 500px)': { bottom: '-1%', left: 0, translateX: '-30%' } }, 0);
     this.stars.transition({ scaleX: 0.98, scaleY: 0.98, translateY: '0.1vh', translateX: '0.1vw' }, 0);
-    this.ground.transition({ scaleX: 0.65, scaleY: 0.65, translateX: '0.5vw' }, 0);
+    this.ground.transition({ scaleX: 0.65, scaleY: 0.65, translateX: '0.5vw', translateY: '20vh' }, 0);
     script.layer('engine.stage.foreground').transition({ scaleX: 0.37, scaleY: 0.37, translateX: '1%', translateY: '15%' }, 0);
     this.martian.fadeIn();
     this.stars.fadeIn();
@@ -54,7 +54,7 @@ export default Scene.extend({
 
   b1: task(function * (script) {
     this.stars.transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOut' });
-    this.ground.transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: '30vh' }, 10000, { easing: 'easeInOut' });
+    this.ground.transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: '60vh' }, 10000, { easing: 'easeInOut' });
     script.layer('engine.stage.foreground').transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOut' });
     yield this.martian.pose('worried')._.text("Yes? [[pause 500]] It's really quite remarkable to see one of your kind again. [[pose sad]] [[pause 250]] I'd heard reports that you'd gone extinct.");
     const choice = yield script.menu(["Uh, I'm not a dinosaur.", "Actually, dinosaurs <em>are</em> extinct."]);
