@@ -6,7 +6,7 @@
       {{#ember-sequencer
         animationAdapter="velocity"
         classNames="ae-full-size"
-        frameDuration=2500
+        frameDuration=3000
         animationIn=(hash duration=1000 easing="easeInSine" effect=(hash opacity=(array 1 0)))
         animationOut=(hash duration=1000 easing="easeOutSine" effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
@@ -52,12 +52,12 @@
               animationOut=(hash duration=1000 effect=(hash opacity=0))
               classNames="ae-full-size"
             as |sub-sequencer|}}
-              {{#sub-sequencer.frame frameDuration=2000}}
+              {{#sub-sequencer.frame frameDuration=1500}}
                 <div class="true-center">
                   <div>Dinosaurs walked the Earth 65 million years ago.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame frameDuration=6000}}
+              {{#sub-sequencer.frame frameDuration=7000}}
                 <div class="true-center">
                   <div>Some scientists claim that dinosaurs had brains the sizes of walnuts (but you shouldn't believe everything you hear).</div>
                 </div>
@@ -82,7 +82,7 @@
                   <div>In case you're not sure what a triceratops is, think of Cera from <em>The Land Before Time</em>.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame frameDuration=6000}}
+              {{#sub-sequencer.frame frameDuration=10000}}
                 <div class="true-center">
                   <div>I'm not sure why I was so obsessed with dinosaurs. Maybe it was just that they were something adults agreed were real, but that I never could actually see.</div>
                 </div>
@@ -97,14 +97,9 @@
                   <div>And so, I imagined something awesome. To a lot of kids today, dinosaurs must still be awesome.</div>
                 </div>
               {{/sub-sequencer.frame}}
-              {{#sub-sequencer.frame frameDuration=3000}}
-                <div class="true-center">
-                  <div>To me though, they're just dead.</div>
-                </div>
-              {{/sub-sequencer.frame}}
               {{#sub-sequencer.frame}}
                 <div class="true-center">
-                  <div>Remember, you are not a dinosaur. You are not a mammalian variant of dinosaur. You are a human being.</div>
+                  <div>Even so, you must remember: you are not a dinosaur.</div>
                 </div>
               {{/sub-sequencer.frame}}
             {{/ember-sequencer}}
