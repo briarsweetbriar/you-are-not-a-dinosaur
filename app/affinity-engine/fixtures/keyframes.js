@@ -5,6 +5,9 @@ export default [{
   id: 'ground',
   src: 'images/ground.png'
 }, {
+  id: 'stars',
+  src: 'images/stars.png'
+}, {
   id: 'martian-neutral',
   src: 'images/martian/neutral.png'
 }, {
