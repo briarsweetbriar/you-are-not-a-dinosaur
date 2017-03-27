@@ -179,7 +179,7 @@ export default Scene.extend({
 
   d2: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("Oh, sorry. [[pause 350]] I didn't realize that you had local distinctions between categories of dinosaur. [[pause 350]] [[pose neutral]] Perhaps we can agree that you are a 'mammal' variant of dinosaur. [[pause 500]] [[pose distracted]] That seems like a fair compromise.");
-    const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "Yeah, I guess we should always strive for compromise. So that makes me a mammalian dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
+    const choice = yield script.menu(["I'm not a 'variant' of dinosaur. In fact, you're defining 'dinosaur' very differently than me.", "Yeah, I guess we should always strive for compromise. So that makes me a mammalian dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
 
     switch (choice.key) {
       case 0: return this.get('d3').perform(script);
@@ -267,7 +267,7 @@ export default Scene.extend({
   martianDepartureChoices: Ember.computed('rudeDeparture', {
     get() {
       if (this.get('rudeDeparture')) {
-        return ["Flip off the UFO.", "Shrug.", "Tweet about it."];
+        return ["Flip off the UFO.", "Snap a picture of it.", "Shrug."];
       } else {
         return ["*<em>sigh</em>*"];
       }
