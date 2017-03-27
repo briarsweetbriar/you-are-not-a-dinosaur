@@ -148,21 +148,21 @@ export default Scene.extend({
 
   c4: task(function * (script) {
     yield this.martian.pose('sad')._.text("Oh, [[pause 350]] are you an herbivore?");
-    const choice = yield script.menu(["Are you an idiot? How is it that you even have space technology?", "I'm not a dinosaur."]);
+    const choice = yield script.menu(["I'm not a dinosaur.", "You're not actually all that smart, are you?"]);
 
     switch (choice.key) {
-      case 0: return this.get('angryMartian').perform(script);
-      default: return this.get('c5').perform(script);
+      case 0: return this.get('c5').perform(script);
+      default: return this.get('angryMartian').perform(script);
     }
   }),
 
   c5: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("I know what a dinosaur is. [[pause 500]] Are you questioning my intellegence?");
-    const choice = yield script.menu(["Yes! Really, how is it that you even have space technology?", "Actually, <em>do</em> you know what a dinosaur is?"]);
+    const choice = yield script.menu(["Actually, <em>do</em> you know what a dinosaur is?", "Yeah, actually I am questioning your intellegence. How is it that you even have space technology?"]);
 
     switch (choice.key) {
-      case 0: return this.get('angryMartian').perform(script);
-      default: return this.get('d1').perform(script);
+      case 0: return this.get('d1').perform(script);
+      default: return this.get('angryMartian').perform(script);
     }
   }),
 
@@ -179,7 +179,7 @@ export default Scene.extend({
 
   d2: task(function * (script) {
     yield this.martian.pose('annoyed')._.text("Oh, sorry. [[pause 350]] I didn't realize that you had local distinctions between categories of dinosaur. [[pause 350]] [[pose neutral]] Perhaps we can agree that you are a 'mammal' variant of dinosaur. [[pause 500]] [[pose distracted]] That seems like a fair compromise.");
-    const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "Yeah, I guess compromise is good. So that makes me a mammalian dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
+    const choice = yield script.menu(["The way you're defining 'dinosaur' is pretty broad. That word means something far more specific to me and other people on Earth.", "Yeah, I guess we should always strive for compromise. So that makes me a mammalian dinosaur, huh?", "You're clearly not going to hear me out. I'm done with this."]);
 
     switch (choice.key) {
       case 0: return this.get('d3').perform(script);
