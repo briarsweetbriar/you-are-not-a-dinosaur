@@ -8,6 +8,7 @@ $ae-text-block-height: 165px;
 @import "affinity-engine";
 @import "affinity-engine/base";
 @import "affinity-engine/styles/block";
+@import "affinity-engine/styles/caption";
 @import "affinity-engine/styles/coastal";
 @import "affinity-engine/styles/full";
 @import "affinity-engine/styles/paper";
@@ -15,6 +16,7 @@ $ae-text-block-height: 165px;
 @import "affinity-engine/menu-bar";
 @import "affinity-engine/stage";
 @import "affinity-engine/stage/direction/image";
+@import "affinity-engine/stage/direction/menu";
 @import "affinity-engine/stage/direction/text";
 
 a, a:visited {

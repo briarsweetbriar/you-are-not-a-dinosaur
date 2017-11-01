@@ -1,25 +1,41 @@
 export default [{
   id: 'spaceship',
-  src: 'images/spaceship.png'
+  attrs: {
+    src: 'images/spaceship.png'
+  }
 }, {
   id: 'ground',
-  src: 'images/ground.png'
+  attrs: {
+    src: 'images/ground.png'
+  }
 }, {
   id: 'stars',
-  src: 'images/stars.png'
+  attrs: {
+    src: 'images/stars.png'
+  }
 }, {
   id: 'martian-neutral',
-  src: 'images/martian/neutral.png'
+  attrs: {
+    src: 'images/martian/neutral.png'
+  }
 }, {
   id: 'martian-annoyed',
-  src: 'images/martian/annoyed.png'
+  attrs: {
+    src: 'images/martian/annoyed.png'
+  }
 }, {
   id: 'martian-distracted',
-  src: 'images/martian/distracted.png'
+  attrs: {
+    src: 'images/martian/distracted.png'
+  }
 }, {
   id: 'martian-sad',
-  src: 'images/martian/sad.png'
+  attrs: {
+    src: 'images/martian/sad.png'
+  }
 }, {
   id: 'martian-worried',
-  src: 'images/martian/worried.png'
+  attrs: {
+    src: 'images/martian/worried.png'
+  }
 }];

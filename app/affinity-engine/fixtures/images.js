@@ -1,5 +1,7 @@
 export default [{
   id: 'spaceship',
-  keyframe: 'spaceship',
-  height: 100
+  attrs: {
+    keyframe: 'spaceship',
+    height: 100
+  }
 }];

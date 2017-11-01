@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { Scene } from 'affinity-engine-stage';
-import { task, timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 
 export default Scene.extend({
   start: task(function * (script) {
@@ -9,19 +9,19 @@ export default Scene.extend({
     this.bgmusic = script.sound('spacewolf').play().loop();
     this.stars = script.backdrop('stars');
     this.ground = script.backdrop('ground');
-    this.spaceship = script.image('spaceship').transition({ bottom: 0, left: '50%', translateX: '-50%', '@media (max-width: 500px)': { left: 0, translateX: '-5%' } }, 0);
-    this.martian = yield script.character('martian').transition({ bottom: 0 }, 100);
-    script.layer('engine.stage').transition({ opacity: 0 }, 0);
-    yield this.martian.transition({ bottom: 0, left: '50%', translateX: '-100%', '@media (max-width: 500px)': { bottom: '-1%', left: 0, translateX: '-30%' } }, 0);
-    this.stars.transition({ scaleX: 0.98, scaleY: 0.98, translateY: '0.1vh', translateX: '0.1vw' }, 0);
-    this.ground.transition({ scaleX: 0.65, scaleY: 0.65, translateX: '0.5vw', translateY: '20vh' }, 0);
-    script.layer('engine.stage.foreground').transition({ scaleX: 0.37, scaleY: 0.37, translateX: '1%', translateY: '15%' }, 0);
+    this.spaceship = script.image('spaceship').transition({ effect: { bottom: 0, left: '50%', translateX: '-50%', '@media (max-width: 500px)': { left: 0, translateX: '-5%' } }, duration: 0 });
+    this.martian = yield script.character('martian').transition({ effect: { bottom: 0 }, duration: 100 });
+    script.layer('stage').transition({ effect: { opacity: 0 }, duration: 0 });
+    yield this.martian.transition({ effect: { bottom: 0, left: '50%', translateX: '-100%', '@media (max-width: 500px)': { bottom: '-1%', left: 0, translateX: '-30%' } }, duration: 0 });
+    this.stars.transition({ effect: { translateY: '0.1vh', translateX: '0.1vw' }, duration: 0 });
+    this.ground.transition({ effect: { scaleX: 0.65, scaleY: 0.65, translateX: '0.5vw', translateY: '20vh' }, duration: 0 });
+    script.layer('stage.image.foreground').transition({ effect: { scaleX: 0.37, scaleY: 0.37, translateX: '1%', translateY: '15%' }, duration: 0 });
     this.martian.fadeIn();
     this.stars.fadeIn();
     this.ground.fadeIn();
     this.spaceship.fadeIn();
 
-    script.layer('engine.stage').transition({ opacity: 1 }, 3000);
+    script.layer('stage').transition({ effect: { opacity: 1 }, duration: 3000 });
 
     yield script.text("You are out for a walk when you stumble upon an impossible scene: a martian is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* A martian!"]);
@@ -53,9 +53,9 @@ export default Scene.extend({
   }),
 
   b1: task(function * (script) {
-    this.stars.transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOut' });
-    this.ground.transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: '60vh' }, 10000, { easing: 'easeInOut' });
-    script.layer('engine.stage.foreground').transition({ scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, 10000, { easing: 'easeInOut' });
+    this.stars.transition({ effect: { scaleX: 1.05, scaleY: 1.05, translateX: 0, translateY: 0 }, duration: 10000, easing: 'easeInOut' });
+    this.ground.transition({ effect: { scaleX: 1, scaleY: 1, translateX: 0, translateY: '60vh' }, duration: 10000, easing: 'easeInOut' });
+    script.layer('stage.image.foreground').transition({ effect: { scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 }, duration: 10000, easing: 'easeInOut' });
     yield this.martian.pose('worried')._.text("Yes? [[pause 500]] It's really quite remarkable to see one of your kind again. [[pose sad]] [[pause 250]] I'd heard reports that you'd gone extinct.");
     const choice = yield script.menu(["Uh, I'm not a dinosaur.", "Actually, dinosaurs <em>are</em> extinct."]);
 
@@ -221,8 +221,8 @@ export default Scene.extend({
   }),
 
   playerDone: task(function * (script) {
-    script.layer('engine.stage.foreground').transition({ translateX: '150%', translateZ: '50px' }, 2500, { easing: 'easeInSine' });
-    script.layer('engine.stage.background').transition({ translateX: '100%', translateZ: '250px', opacity: 0 }, 15000, { easing: 'easeInOutSine' });
+    script.layer('stage.image.foreground').transition({ effect: { translateX: '150%', translateZ: '50px' }, duration: 2500, easing: 'easeInSine' });
+    script.layer('stage.image.background').transition({ effect: { translateX: '100%', translateZ: '250px', opacity: 0 }, duration: 15000, easing: 'easeInOutSine' });
     yield script.text("And with that, you turn around and leave. That conversation was going nowhere.");
     this.get('again').perform(script);
   }),
@@ -248,14 +248,14 @@ export default Scene.extend({
   martianLeaves: task(function * (script) {
     this.martian.delay(500).fadeOut(1000);
     yield script.text("The martian makes a few final modifications before getting back into its ship to leave.");
-    this.spaceship.transition({ translateY: '-100vh', translateX: '19%', translateZ: '100px' }, 2000);
+    this.spaceship.transition({ effect: { translateY: '-100vh', translateX: '19%', translateZ: '100px' }, duration: 2000 });
     yield script.menu(this.get('martianDepartureChoices'));
 
     this.get('again').perform(script);
   }),
 
   again: task(function * (script) {
-    script.layer('engine.stage.background').transition({ opacity: 0 }, 1500);
+    script.layer('stage.image.background').transition({ effect: { opacity: 0 }, duration: 1500 });
     yield script.pause(1000);
     const choice = yield script.menu(['Play again?']);
 
