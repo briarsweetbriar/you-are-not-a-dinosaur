@@ -50,6 +50,15 @@ a, a:visited {
   -webkit-flex-direction: column;
   flex-direction: column;
   text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
 }
 
 .made-by-affinity, .made-by-affinity:visited {
