@@ -128,7 +128,7 @@ a, a:visited {
   }
 }
 
-@media (min-width: map-get($breakpoints, small)) {
+@media (max-width: map-get($breakpoints, medium)) {
   .ae-text.ae-block {
     left: 0;
     right: 0;
