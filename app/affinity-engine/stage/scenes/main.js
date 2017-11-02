@@ -23,7 +23,7 @@ export default Scene.extend({
 
     script.layer('stage').transition({ effect: { opacity: 1 }, duration: 3000 });
 
-    yield script.text("You are out for a walk when you stumble upon an impossible scene: a martian is busy repairing its spacecraft!");
+    yield script.text("You are out for a walk when you stumble upon something strange: a martian is busy repairing its spacecraft!");
     yield script.menu(["*<em>gasp</em>* A martian!"]);
 
     this.get('a').perform(script);

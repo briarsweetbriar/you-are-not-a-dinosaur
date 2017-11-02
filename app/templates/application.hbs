@@ -6,14 +6,14 @@
       {{#ember-sequencer
         animationAdapter="velocity"
         classNames="ae-full-size"
-        frameDuration=2500
-        animationIn=(hash duration=1000 easing="easeInSine" effect=(hash opacity=(array 1 0)))
-        animationOut=(hash duration=1000 easing="easeOutSine" effect=(hash opacity=0))
+        frameDuration=1500
+        animationIn=(hash duration=750 easing="easeInSine" effect=(hash opacity=(array 1 0)))
+        animationOut=(hash duration=750 easing="easeOutSine" effect=(hash opacity=0))
         onComplete=(toggle-action "sequencerComplete" this)
       as |sequencer|}}
         {{#sequencer.frame
-          frameDuration=4000
-          animationIn=(hash duration=1250 easing="easeOutSine" effect=(hash opacity=(array 1 0) translateY=(array 0 300)))
+          frameDuration=2000
+          animationIn=(hash duration=1000 easing="easeOutSine" effect=(hash opacity=(array 1 0) translateY=(array 0 300)))
         }}
           <div class="true-center">
             <h1>You are Not a Dinosaur</h1>

@@ -99,3 +99,39 @@ a, a:visited {
 .margin-top-3 {
   margin-top: 30px;
 }
+
+.ae-menu.ae-block {
+  max-height: 100%;
+  border-width: $ae-menu-block-border-width;
+  border-radius: $ae-menu-block-border-radius;
+
+  .ember-flex-menu-option-button, .ember-flex-menu-option-input {
+    width: $ae-menu-option-block-width;
+    border-width: $ae-menu-option-block-border-width;
+  }
+
+  .ember-flex-menu-option-input-accept {
+    border-width: $ae-menu-option-block-border-width;
+    border-top-right-radius: $ae-menu-block-border-radius;
+    border-bottom-right-radius: $ae-menu-block-border-radius;
+    padding: 0 $ae-menu-option-input-accept-block-padding-sides;
+    font-size: $ae-menu-option-input-accept-block-font-size;
+  }
+}
+
+@media (min-width: map-get($breakpoints, small)) {
+  .ae-text.ae-block {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 20px;
+    line-height: 35px;
+  }
+
+  .ae-menu.ae-block .ember-flex-menu-option-type {
+    font-size: 20px;
+    line-height: 35px;
+    padding: 10px;
+    margin: 7px 0;
+  }
+}
